@@ -537,7 +537,7 @@ main {
     width: 100vw;
     height: 100vh;
     z-index: 990;
-    background-color: #ffffff;
+    background-color: #ffffffbb;
 }
 
 .modal__content {
