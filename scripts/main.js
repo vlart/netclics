@@ -1,5 +1,6 @@
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2'; 
 const API_KEY = 'bec2f30924fdeacccc43f4664036f041'; 
+const SERVER = 'https://api.themoviedb.org/3'
 
 // menu
 
@@ -15,6 +16,8 @@ const genresList = document.querySelector('.genres-list');
 const rating = document.querySelector('.rating');
 const description = document.querySelector('.description');
 const modalLink = document.querySelector('.modal__link');
+const searchForm = document.querySelector('.search__form');
+const searchFormInput = document.querySelector('.search__form-input');
 
 const loading = document.createElement('div');
 loading.className = 'loading'
@@ -35,6 +38,14 @@ const DBServise = class {
     getTestCard = () => {
         return this.getData('card.json');
     }
+
+    getSearchResult = query => {
+        return this.getData(`${SERVER}/search/tv?api_key=${API_KEY}&language=en-US&page=1&query=${query}&include_adult=false`);
+    }
+
+    getTvShow = id => {
+        return this.getData(`${SERVER}/tv/${id}?api_key=${API_KEY}&language=en-US`);
+    }
 }
 
 const renderCard = res => {
@@ -46,6 +57,7 @@ const renderCard = res => {
             backdrop_path: backdrop, 
             name: title, 
             poster_path: poster, 
+            id,
             vote_average: vote,
         } = item;
 
@@ -56,10 +68,11 @@ const renderCard = res => {
 
         const card = document.createElement('li')
 
+        card.idTV = id;
         card.classList.add('tv-shows__item');
 
         card.innerHTML = `
-            <a href="#" class="tv-card">
+            <a href="#" id="${id}" class="tv-card">
             ${voteElem}
             <img class="tv-card__img"
                 src="${posterIMG}"
@@ -72,11 +85,16 @@ const renderCard = res => {
         tvShowList.append(card)
     })
 }
-{
-    tvShows.append(loading);
-    new DBServise().getTestData().then(renderCard);
-}
 
+searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const value = searchFormInput.value.trim();
+    searchFormInput.value = '';
+    if (value) {
+        tvShows.append(loading);
+        new DBServise().getSearchResult(value).then(renderCard);
+    }
+})
 
 
 hamburger.addEventListener('click', () => {
@@ -92,6 +110,7 @@ document.body.addEventListener('click', e => {
 });
 
 leftMenu.addEventListener('click', e => {
+    e.preventDefault();
     const target = e.target;
     const dropdown = target.closest('.dropdown'); 
     if (dropdown) {
@@ -108,24 +127,24 @@ tvShowList.addEventListener('click', e => {
     const card = target.closest('.tv-card'); 
     if(card)  {
 
-        new DBServise().getTestCard().then(res => {
-            console.log(res);
-            tvCardImg.src = IMAGE_URL + res.poster_path;
-            modalTitle.textContent = res.name;
-            // exmpl 1
-            //genresList.innerHTML = res.genres.reduce((acc, item) => `${acc} <li>${item.name}</li>`, '')
-            
+        new DBServise().getTvShow(card.id)
+        .then(({
+                poster_path: posterPath, 
+                name: title, 
+                genres, 
+                vote_average: voteAvg, 
+                homepage, 
+                overview}) => {
+
+            tvCardImg.src = posterPath? IMAGE_URL + posterPath : 'img/no-poster.jpg';
+            modalTitle.textContent = title;
             genresList.textContent = '';
-            // exmpl 2
-            for (const item of res.genres){
-                genresList.innerHTML += `<li>${item.name}</li>`;
+            for (const item of genres){
+                genresList.innerHTML += `<li>${title}</li>`;
             }
-
-            // res.genres.forEach(item => genresList.innerHTML += `<li>${item.name}</li>`);  // exmpl 3
-
-            rating
-            description
-            modalLink
+            rating.textContent = voteAvg ? voteAvg : 'Not rated yet';
+            description.textContent = overview;
+            modalLink.href = homepage;
         }).then(() => {
             document.body.style.overflow = 'hidden';
             modal.classList.remove('hide');
