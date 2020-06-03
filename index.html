@@ -32,23 +32,23 @@
         <li>
             <a href="#" id="search">
                 <i class="fa fa-search" aria-hidden="true"></i>
-                <span>ПОИСК</span>
+                <span>SEARCH</span>
             </a>
         </li>
         <li>
             <a href="#" class="dropdown">
                 <i class="fa fa-trophy" aria-hidden="true"></i>
-                <span>РЕЙТИНГ</span>
+                <span>RATING</span>
             </a>
             <ul class="dropdown-list">
                 <li>
                     <a href="#" id="top-rated">
-                        <span>Топ сериалы</span>
+                        <span>Top TV shows</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="popular">
-                        <span>Популярные</span>
+                        <span>Popular</span>
                     </a>
                 </li>
 
@@ -57,17 +57,17 @@
         <li>
             <a href="#" class="dropdown">
                 <i class="fa fa-tv" aria-hidden="true"></i>
-                <span>НОВЫЕ ЭПИЗОДЫ</span>
+                <span>NEW SERIES</span>
             </a>
             <ul class="dropdown-list">
                 <li>
                     <a href="#" id="today">
-                        <span>Сегодня</span>
+                        <span>Today</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" id="week">
-                        <span>На неделю</span>
+                        <span>Next 7 days</span>
                     </a>
                 </li>
             </ul>
@@ -79,15 +79,15 @@
     <div class="container header-flex">
         <hgroup class="title-wrapper">
             <h1 class="title">Netclicks</h1>
-            <h2 class="subtitle">все о сериалах</h2>
+            <h2 class="subtitle">Best TV shows</h2>
         </hgroup>
 
         <section class="search">
             <form class="search__form">
-                <h2 class="search__form-head">Поиск</h2>
+                <h2 class="search__form-head">Search</h2>
                 <label class="search__form-block">
                     <input type="text" class="search__form-input" id="searchText"
-                           placeholder="Введи название...">
+                           placeholder="Enter something...">
                 </label>
             </form>
         </section>
@@ -97,10 +97,11 @@
 <main>
     <div class="container">
         <section class="tv-shows">
-            <h3 class="tv-shows__head">Результат поиска</h3>
+            <h3 class="tv-shows__head"></h3>
             <ul class="tv-shows__list">
                  
             </ul>
+            <ul class="pagination"></ul>
         </section>
 
     </div>
@@ -113,7 +114,7 @@
                     <div class="image__content">
                         <img class="tv-card__img"
                              src="img/no-poster.jpg"
-                             alt="Название шоу">
+                             alt="Show name">
                     </div>
 
                 </div>
@@ -121,11 +122,11 @@
 
             <article class="modal__description">
                 <h2 class="modal__title">
-                    Название шоу
+                    TV show name
                 </h2>
 
                 <section class="genres">
-                    <h3>Жанр:</h3>
+                    <h3>Genre:</h3>
                     <ul class="genres-list">
                         <li>Документальный</li>
                         <li>Мелодрама</li>
@@ -133,7 +134,7 @@
                     </ul>
                 </section>
                 <section>
-                    <h3>Рейтинг</h3>
+                    <h3>Rating</h3>
                     <span class="rating">10</span>
                 </section>
 
@@ -141,7 +142,7 @@
                 <section class="header__info">
 
 
-                    <h3 dir="auto">Обзор: </h3>
+                    <h3 dir="auto">Review: </h3>
                     <div class="overview" dir="auto">
 
                         <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis ut
@@ -150,7 +151,7 @@
 
                     </div>
                     <p class="modal__link-wrapper">
-                        <a class="modal__link" href="https://google.com" target="_blanc">Оффициальная страница</a>
+                        <a class="modal__link" href="https://google.com" target="_blanc">Official page</a>
                     </p>
                 </section>
             </article>
@@ -162,18 +163,8 @@
 </div>
 
 
-
-
-
-<div class="preloader">
-    <div class="preloader-wrapper">
-        <div class="preloader-one"></div>
-        <div class="preloader-one"></div>
-        <div class="preloader-one"></div>
-        <div class="preloader-one"></div>
-        <div class="preloader-two"></div>
-        <div class="preloader-three"></div>
-    </div>
+<div class="loader-wrapper">
+    <div class="loader"></div>
 </div>
 
 
